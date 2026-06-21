@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ahmed Esam — Implementing Subscription Features with Stripe</title>
+<meta name="description" content="Delivering a scalable subscription and billing system for a SaaS product with Stripe integration.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Albert+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="site-header">
+  <a href="index.html" class="logo" aria-label="Home">
+    <img src="assets/z9y7BwpLP5xb0dDS.png" alt="Ahmed Esam logo">
+  </a>
+  <nav class="main-nav">
+    <a href="index.html">Home</a>
+    <a href="https://digitalarabic.substack.com/" target="_blank" rel="noopener">Blog</a>
+    <a href="about.html">About</a>
+  </nav>
+</header>
+
+<main class="case-study">
+  <header class="cs-header">
+    <h1>Implementing Subscription Features with Stripe</h1>
+    <p class="cs-subtitle">Delivering a scalable subscription and billing system for a SaaS product with Stripe integration.</p>
+  </header>
+
+  <div class="cs-body">
+      <section class="cs-sec cs-text">
+        <h2 class="cs-heading">Overview</h2>
+        <p>The moment the product entered its monetization phase. The real challenge was operationalizing product rules into a billing system that users could trust and the business could run reliably at scale.</p>
+        <p>I led the initiative end to end—framing the monetization approach, evaluating payment solutions, defining the technical direction, and aligning stakeholders around a secure, scalable execution.</p>
+      </section>
+
+      <section class="cs-sec cs-columns"><div class="cs-col-grid"><div class="cs-col"><h3 class="cs-col-heading">Problem</h3>
+        <p>We needed to launch subscriptions fast without increasing security, compliance, or operational risk.</p></div><div class="cs-col"><h3 class="cs-col-heading">Key Question</h3>
+        <p>How can we introduce a billing system that customers trust, without turning billing into a long-term engineering and compliance burden?</p></div><div class="cs-col"><h3 class="cs-col-heading">Answer (TL;DR)</h3>
+        <p>We used Stripe to handle payments, invoicing, taxes, and retries, while keeping product-specific logic—usage rules, entitlements, and billing UX—within the core product.</p></div></div></section>
+
+      <section class="cs-sec cs-columns"><div class="cs-col-grid"><div class="cs-col"><h3 class="cs-col-heading">Goals</h3>
+        <ul class="cs-list"><li>Launch subscriptions with monthly and yearly plans, including free trials</li><li>Support usage-based pricing in a clear and predictable way</li><li>Automate invoices, taxes, refunds, and retries</li><li>Minimize PCI and regulatory exposure</li></ul></div><div class="cs-col"><h3 class="cs-col-heading">Success Criteria</h3>
+        <ul class="cs-list"><li>Subscriptions live end to end with measurable conversion</li><li>≥99.9% reliable processing of billing events</li><li>Reduced billing-related support escalations</li><li>No raw payment data stored or processed internally</li></ul></div></div></section>
+
+      <section class="cs-sec cs-text">
+        <h2 class="cs-heading">My Role</h2>
+        <h4 class="cs-sub">Product Manager</h4>
+        <p>I owned the end-to-end billing strategy, challenged build-vs-buy assumptions, defined the integration approach, and drove execution from discovery through production launch.</p>
+        <h4 class="cs-sub">Responsibilities</h4>
+        <ul class="cs-list"><li>Defined requirements and acceptance criteria</li><li>Modeled usage and billing rules</li><li>Led the build-vs-buy evaluation and integration scope</li><li>Coordinated engineering, design, finance, and legal</li><li>Oversaw QA and launch readiness</li></ul>
+      </section>
+
+      <section class="cs-sec cs-text">
+        <h2 class="cs-heading">Discovery</h2>
+        <p>I explored a core question early on: should we build billing in-house, or rely on a payment gateway? To guide this exploration, I defined clear decision criteria up front—regulatory compliance, scalability, long-term cost, and operational risk—rather than optimizing for short-term features.</p>
+        <p>Two paths emerged:</p>
+        <ul class="cs-list"><li>In-house billing: full ownership of payments, including engineering effort, PCI responsibility, security exposure, and ongoing regulatory and maintenance costs.</li><li>Payment gateway integration: delegating payment complexity to a specialized platform with mature subscription support, global reach, and built-in compliance.</li></ul>
+      </section>
+
+      <section class="cs-sec cs-quote"><p>I realized we shouldn’t build billing in-house, integrating with a payment gateway lets the team focus on product value, not financial infrastructure.</p></section>
+
+      <section class="cs-sec cs-columns"><div class="cs-col-grid"><div class="cs-col"><h3 class="cs-col-heading">Technical Strategy &amp; Integration Scope</h3>
+        <p>Based on this framing, I defined a provider-agnostic integration strategy designed to work with any mature payment gateway:</p>
+        <ul class="cs-list"><li>Treat the payment platform as the system of record for billing state</li><li>Use tokenized checkout flows to minimize PCI exposure</li><li>Rely on webhooks as the source of truth for payment events</li><li>Keep internal systems focused on product-specific logic such as usage tracking, entitlements, and access control</li></ul></div><div class="cs-col"><h3 class="cs-col-heading">Regulatory Compliance &amp; Security</h3>
+        <p>Compliance considerations strongly favored a gateway-based approach:</p>
+        <ul class="cs-list"><li>Avoiding direct handling of card data dramatically reduced PCI scope</li><li>Alignment with GDPR and regional regulations reduced legal and operational risk</li><li>Event-driven billing enabled auditable, traceable financial flows</li></ul></div></div></section>
+
+      <section class="cs-sec cs-quote"><p>This separation preserved flexibility in vendor choice while keeping the architecture clean, resilient, and scalable.</p></section>
+
+      <section class="cs-sec cs-text">
+        <h2 class="cs-heading">Market Research: Payment Gateways Comparison</h2>
+        <p>To evaluate the gateway option, I compared leading payment providers, with the goal of minimizing long-term compliance risk while enabling international scale with minimal operational overhead.</p>
+      </section>
+
+      <section class="cs-sec cs-textmedia"><div class="cs-tm-text"><h2 class="cs-heading">Payment Methods</h2>
+        <p>While several providers offer broad payment-method coverage, Stripe consistently matches or exceeds competitors across cards, wallets, ACH, and local methods—making it a strong default for international SaaS products without requiring multiple integrations.</p></div><div class="cs-tm-media"><img src="assets/Nq527SUdR3ZjuM1X.png" alt="" loading="lazy"></div></section>
+
+      <section class="cs-sec cs-textmedia"><div class="cs-tm-text"><h2 class="cs-heading">Payment Options</h2>
+        <p>Stripe stands out for combining advanced billing capabilities with a consistent, developer-first API. While some providers excel in niche scenarios, Stripe offers the most balanced option set for subscription-driven products.</p></div><div class="cs-tm-media"><img src="assets/YKQHuplZ4kXxJe9W.png" alt="" loading="lazy"></div></section>
+
+      <section class="cs-sec cs-textmedia"><div class="cs-tm-text"><h2 class="cs-heading">Coverage</h2>
+        <p>Although PayPal and 2Checkout lead in raw country count, Stripe’s currency support and regional compliance depth make it better suited for scalable, multi-market SaaS expansion through a single integration.</p></div><div class="cs-tm-media"><img src="assets/1iIjMey5wZU5RJEc.png" alt="" loading="lazy"></div></section>
+
+      <section class="cs-sec cs-text">
+        
+        <p class="cs-lead">After comparing providers against our compliance, scalability, and coverage criteria, we made a confident decision to move forward with Stripe as the payment platform.</p>
+      </section>
+
+      <section class="cs-sec cs-columns"><div class="cs-col-grid"><div class="cs-col"><h3 class="cs-col-heading">What Stripe Handles</h3>
+        <ul class="cs-list"><li>Payment processing and payment method storage</li><li>Subscription lifecycle (creation, renewal, cancellation)</li><li>Invoicing, proration, retries, and failed payment handling</li><li>Tax calculation, compliance, and regulatory updates</li><li>Webhook events for all billing state changes</li></ul></div><div class="cs-col"><h3 class="cs-col-heading">What We Handle</h3>
+        <ul class="cs-list"><li>Product-specific billing logic (usage calculation, access control)</li><li>Defining what is billable and when charges should apply</li><li>Interpreting Stripe events and syncing them with product state</li><li>Billing UX: plan changes, billing status, and error messaging</li></ul></div></div></section>
+
+      <section class="cs-sec cs-text">
+        <h2 class="cs-heading">Stakeholder Considerations</h2>
+        <p>Choosing a payment gateway over an in-house solution introduced a shared set of priorities:</p>
+        <ul class="cs-list"><li>Clear ownership boundaries between payment infrastructure and product logic</li><li>Reduced operational and compliance burden through automation</li><li>Reliable, auditable billing flows that scale with the product</li><li>Predictable billing states and failure handling to maintain customer trust</li></ul>
+        <p>With stakeholder priorities aligned, we translated those needs into a focused 6-week roadmap that sequenced integrations, product logic, and validation.</p>
+      </section>
+
+      <section class="cs-sec cs-textmedia"><div class="cs-tm-text"><h2 class="cs-heading">Roadmap</h2>
+        <div class="cs-def"><strong>API &amp; Webhook Integrations</strong><span>Established the billing foundation by integrating payment APIs and webhooks, ensuring reliable event handling and synchronization between payment state and product access.</span></div>
+        <div class="cs-def"><strong>UI Implementation</strong><span>Implemented customer-facing billing interfaces to support plan selection, billing details, and clear visibility into subscription status.</span></div>
+        <div class="cs-def"><strong>Business Logic</strong><span>Added product-specific billing rules, including entitlement management, usage interpretation, and access control tied to payment events.</span></div>
+        <div class="cs-def"><strong>Notifications</strong><span>Introduced notifications and safeguards for payment failures, retries, and grace periods to maintain transparency and user trust.</span></div>
+        <div class="cs-def"><strong>Testing &amp; Validation</strong><span>Conducted end-to-end testing across billing flows, failure scenarios, and reconciliation to ensure production readiness and reliability.</span></div></div><div class="cs-tm-media"><img src="assets/Du4xcnsaFhQkTesi.png" alt="" loading="lazy"></div></section>
+
+      <section class="cs-sec cs-text">
+        <h2 class="cs-heading">Impact &amp; Outcome</h2>
+        <p>This work resulted in:</p>
+        <ul class="cs-list"><li>Delivered the full billing engine in 6 weeks—a ~70% reduction compared to the original 5-month in-house build estimate.</li><li>Reduced manual billing adjustments and invoice corrections by ~85%.</li><li>Reallocated 3 full-time engineers to core product features within two weeks of Stripe go-live.</li><li>Achieved 99.98% webhook delivery success, ensuring user entitlements remained accurately synchronized with payment status.</li></ul>
+      </section>
+
+      <section class="cs-sec cs-text">
+        <h2 class="cs-heading">Key Learnings</h2>
+        <ul class="cs-list"><li>Build-vs-buy decisions are strategic, not just technical.</li><li>Early clarity on ownership boundaries prevents future complexity.</li><li>Event-driven integrations scale more reliably and remain resilient under change.</li></ul>
+      </section>
+
+      <section class="cs-sec cs-quote"><p>The best product decisions don’t just solve today’s problem—they simplify every decision that follows.</p></section>
+  </div>
+
+  <section class="cs-readmore">
+    <h2 class="section-title"><span>Read more of my case studies</span></h2>
+    <div class="rm-grid">
+    <a class="rm-card" href="at-protocol.html">
+      <div class="rm-thumb"><img src="assets/7GmCUjTG9ZNB5UNU.png" alt="AT Protocol (Bluesky) Integration thumbnail" loading="lazy"></div>
+      <h3>AT Protocol (Bluesky) Integration</h3>
+      <p>AT Protocol integration feasibility and product strategy to future-proof Clip Symphony and expand decentralized content distribution.</p>
+    </a>
+    <a class="rm-card" href="ninja.html">
+      <div class="rm-thumb"><img src="assets/ThxS6cu78xC7a4X2.png" alt="Ninja — Grocery Delivery Experience Redesign thumbnail" loading="lazy"></div>
+      <h3>Ninja — Grocery Delivery Experience Redesign</h3>
+      <p>Improving clarity, communication, and confidence in a grocery delivery experience.</p>
+    </a>
+    <a class="rm-card" href="ai-news-assistant.html">
+      <div class="rm-thumb"><img src="assets/29eY9nxqJ5w1UouY.png" alt="Personalized AI News Assistant thumbnail" loading="lazy"></div>
+      <h3>Personalized AI News Assistant</h3>
+      <p>An AI-driven product concept that helps users cut through news overload with personalized summaries and context.</p>
+    </a>
+    </div>
+  </section>
+
+  <section class="contact-strip">
+    <p class="contact-label">Get in touch at</p>
+    <p class="contact-email">ahmedesam3ab@gmail.com</p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <nav class="footer-nav">
+    <a href="index.html">Home</a>
+    <a href="https://digitalarabic.substack.com/" target="_blank" rel="noopener">Blog</a>
+    <a href="about.html">About</a>
+  </nav>
+  <div class="footer-socials">
+    <a href="https://www.linkedin.com/in/ahmedesam3ab/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+    <a href="https://medium.com/@AhmedEsam3AB" target="_blank" rel="noopener" aria-label="Medium"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M2.846 6.887c.03-.295-.083-.586-.303-.784l-2.24-2.7v-.403h6.958l5.378 11.795 4.728-11.795h6.633v.403l-1.916 1.837c-.165.126-.247.333-.213.538v13.498c-.034.204.048.411.213.537l1.871 1.837v.403h-9.412v-.403l1.939-1.882c.19-.19.19-.246.19-.537v-10.91l-5.389 13.688h-.728l-6.275-13.688v9.174c-.052.385.076.774.347 1.052l2.521 3.058v.404h-7.148v-.404l2.521-3.058c.27-.279.39-.67.325-1.052v-10.608z"/></svg></a>
+    <a href="https://github.com/ahmedesam3ab/" target="_blank" rel="noopener" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+  </div>
+</footer>
+</body>
+</html>
